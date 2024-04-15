@@ -6,6 +6,8 @@
 package appkem;
 
 import config.dbConnector;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
@@ -20,6 +22,47 @@ public class registrationform extends javax.swing.JFrame {
     public registrationform() {
         initComponents();
     }
+    public static String uemail,usname;
+    
+    public boolean duplicateCheck(){
+        
+        dbConnector dbc = new dbConnector();
+        
+        try{ 
+             String query = "SELECT * FROM tbl_user  WHERE u_username = '" + uname.getText() + "' OR u_email = '" + email.getText() + "'";
+            ResultSet resultSet = dbc.getData(query);
+            
+            if(resultSet.next()){
+                
+                uemail = resultSet.getString("u_email");
+                
+                if(uemail.equals(email.getText())){
+                    JOptionPane.showMessageDialog(null,"Email is already use !");
+                    email.setText("");
+                }
+                
+                usname = resultSet.getString("u_username");
+                
+                if(usname.equals(uname.getText())){
+                    
+                    JOptionPane.showMessageDialog(null,"Username is already use !");
+                    uname.setText("");
+                }
+                return true;
+            }else{
+                return false;
+            }
+       
+        }catch(SQLException ex){
+            System.out.println(""+ex);
+            return false;
+            
+             
+            
+        }
+    }
+    
+ 
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -108,6 +151,11 @@ public class registrationform extends javax.swing.JFrame {
 
         Cancel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         Cancel.setText("Cancel");
+        Cancel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                CancelMouseClicked(evt);
+            }
+        });
         Cancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CancelActionPerformed(evt);
@@ -130,6 +178,11 @@ public class registrationform extends javax.swing.JFrame {
 
         register1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         register1.setText("Register");
+        register1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                register1MouseClicked(evt);
+            }
+        });
         register1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 register1ActionPerformed(evt);
@@ -162,7 +215,26 @@ public class registrationform extends javax.swing.JFrame {
     }//GEN-LAST:event_CancelActionPerformed
 
     private void register1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_register1ActionPerformed
+        
+       if(fname.getText().isEmpty() || lname.getText().isEmpty()||email.getText().isEmpty()||uname.getText().isEmpty()
+               ||ps.getText().isEmpty()){
+           JOptionPane.showMessageDialog(null,"All fields are required!");
+           
        
+           
+       }else if(ps.getText().length()<8){
+            JOptionPane.showMessageDialog(null,"Password should be above 8!");
+            ps.setText("");    
+       }else if(duplicateCheck()){
+           System.out.println("Duplicate Exist");
+       }
+       else{
+               
+           
+     
+     
+           
+        
         dbConnector dbc = new dbConnector();
         
         if(dbc.insertData("INSERT INTO tbl_user "
@@ -170,17 +242,28 @@ public class registrationform extends javax.swing.JFrame {
                 + " VALUES('"+fname.getText()+"','"+lname.getText()+"','"+email.getText()+"','"+uname.getText()+"','"+ps.getText()+"','"+ut.getSelectedItem()+"','Pending') ")){
             
         JOptionPane.showMessageDialog(null,"SUCCESS!");
+         loginform log = new loginform();
         
+        log.setVisible(true);
+        this.dispose();
+              
         } else{
             JOptionPane.showMessageDialog(null,"ERROR!");
         }
-        
-              
+       }
     }//GEN-LAST:event_register1ActionPerformed
 
     private void lnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lnameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_lnameActionPerformed
+
+    private void register1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_register1MouseClicked
+      
+    }//GEN-LAST:event_register1MouseClicked
+
+    private void CancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CancelMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CancelMouseClicked
 
     /**
      * @param args the command line arguments

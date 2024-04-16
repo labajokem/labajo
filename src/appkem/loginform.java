@@ -6,6 +6,8 @@
 package appkem;
 
 import admin.adminDashbord;
+import admin.userdashboard;
+import admin.userform;
 import config.dbConnector;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,12 +26,26 @@ public class loginform extends javax.swing.JFrame {
         initComponents();
     }
     
+   static String status;
+    static String type;
+    static String fname;
+    static String lname;
+            
     public static boolean loginAcc(String username, String password){
         dbConnector connector = new dbConnector();
         try{
             String query = "SELECT * FROM tbl_user  WHERE u_username = '" + username + "' AND u_password = '" + password + "'";
             ResultSet resultSet = connector.getData(query);
-            return resultSet.next();
+            if(resultSet.next()){
+                status = resultSet.getString("u_status");
+                type = resultSet.getString("u_type");
+                fname = resultSet.getString("u_fname");
+                lname = resultSet.getString("u_lname");
+                return true;
+            }else{
+                return false;
+            }
+            
         }catch (SQLException ex) {
             return false;
         }
@@ -63,6 +79,7 @@ public class loginform extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 51, 153));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setUndecorated(true);
 
         jPanel3.setBackground(new java.awt.Color(204, 204, 204));
         jPanel3.setLayout(null);
@@ -173,15 +190,31 @@ public class loginform extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-     if(loginAcc(username.getText(), password.getText())){
-         JOptionPane.showMessageDialog(null, "Login success!");
-         adminDashbord ads = new adminDashbord();
-         ads.setVisible(true);
-         this.dispose();
+     
         
-         }else{
-           JOptionPane.showMessageDialog(null, "Login Failed!");
-     }     
+        if(loginAcc(username.getText(), password.getText())){
+            if(!status.equals("Active")){
+                JOptionPane.showMessageDialog(null,"Pending Account, Wait for the Admin to Approval!");
+            }else{
+                if(type.equals("Admin")){
+                    JOptionPane.showMessageDialog(null, "Login Successfully!");
+                    adminDashbord ad = new adminDashbord();
+                    ad.admin_acc.setText(""+lname);
+                    ad.setVisible(true);
+                    this.dispose();
+                }else if(type.equals("User")){
+                    JOptionPane.showMessageDialog(null, "Login Successfully!");
+                    userdashboard ud = new userdashboard();
+                    ud.useraccount.setText(""+lname);
+                    ud.setVisible(true);
+                    this.dispose();
+                }else{
+                    JOptionPane.showMessageDialog(null, "No account type, Contact the Admin!");
+                }
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Invalid Account!");
+        }    
         
     }//GEN-LAST:event_jButton2ActionPerformed
 

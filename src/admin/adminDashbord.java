@@ -6,6 +6,7 @@
 package admin;
 
 import appkem.loginform;
+import config.Session;
 import javax.swing.JOptionPane;
 
 /**
@@ -49,6 +50,11 @@ public class adminDashbord extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(153, 255, 255));
         jPanel1.setLayout(null);
@@ -155,6 +161,22 @@ public class adminDashbord extends javax.swing.JFrame {
         us.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jPanel7MouseClicked
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        Session sess = Session.getInstance();
+        
+        if(sess.getUid()== 0 ){
+            JOptionPane.showMessageDialog(null, "no Account, Log in First");
+            loginform lf = new loginform();
+            lf.setVisible(true);
+            this.dispose();
+            
+            
+        }
+        
+        
+        admin_acc.setText(""+sess.getFname() );
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments

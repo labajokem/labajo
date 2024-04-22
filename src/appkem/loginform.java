@@ -8,6 +8,7 @@ package appkem;
 import admin.adminDashbord;
 import admin.userdashboard;
 import admin.userform;
+import config.Session;
 import config.dbConnector;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -37,10 +38,20 @@ public class loginform extends javax.swing.JFrame {
             String query = "SELECT * FROM tbl_user  WHERE u_username = '" + username + "' AND u_password = '" + password + "'";
             ResultSet resultSet = connector.getData(query);
             if(resultSet.next()){
+                
                 status = resultSet.getString("u_status");
                 type = resultSet.getString("u_type");
                 fname = resultSet.getString("u_fname");
                 lname = resultSet.getString("u_lname");
+                Session sess = Session.getInstance();
+                sess.setUid(resultSet.getInt("id"));
+                sess.setFname(resultSet.getString("u_fname"));
+                sess.setLname(resultSet.getString("u_lname"));
+                sess.setEmail(resultSet.getString("u_email"));
+                 sess.setUsername(resultSet.getString("u_username"));
+                sess.setType(resultSet.getString("u_type"));
+                sess.setStatus(resultSet.getString("u_status"));
+                
                 return true;
             }else{
                 return false;

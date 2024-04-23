@@ -6,6 +6,8 @@
 package appkem;
 
 import config.dbConnector;
+import config.passwordHasher;
+import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -156,7 +158,7 @@ public class registrationform extends javax.swing.JFrame {
         jLabel7.setText("email: ");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 170, 80, 30));
 
-        ut.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "admin", "user" }));
+        ut.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "User" }));
         ut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 utActionPerformed(evt);
@@ -222,13 +224,13 @@ public class registrationform extends javax.swing.JFrame {
            
      
      
-           
-        
+           try{
+        String pass = passwordHasher.hashPassword(ps.getText()); 
         dbConnector dbc = new dbConnector();
         
         if(dbc.insertData("INSERT INTO tbl_user "
                 + "(u_fname,u_lname,u_email,u_username,u_password,u_type,u_status)"
-                + " VALUES('"+fname.getText()+"','"+lname.getText()+"','"+email.getText()+"','"+uname.getText()+"','"+ps.getText()+"','"+ut.getSelectedItem()+"','Pending') ")){
+                + " VALUES('"+fname.getText()+"','"+lname.getText()+"','"+email.getText()+"','"+uname.getText()+"','"+pass+"','"+ut.getSelectedItem()+"','Pending') ")){
             
         JOptionPane.showMessageDialog(null,"SUCCESS!");
          loginform log = new loginform();
@@ -239,6 +241,9 @@ public class registrationform extends javax.swing.JFrame {
         } else{
             JOptionPane.showMessageDialog(null,"ERROR!");
         }
+           }catch(NoSuchAlgorithmException ex){
+                System.out.println(""+ex);
+           }
        }
     }//GEN-LAST:event_register1ActionPerformed
 

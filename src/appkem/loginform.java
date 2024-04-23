@@ -8,10 +8,14 @@ package appkem;
 import admin.adminDashbord;
 import admin.userdashboard;
 import admin.userform;
+import config.Session;
 import config.dbConnector;
+import config.passwordHasher;
+import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import sun.security.util.Password;
 
 /**
  *
@@ -28,25 +32,44 @@ public class loginform extends javax.swing.JFrame {
     
    static String status;
     static String type;
-    static String fname;
-    static String lname;
+    
+  
             
     public static boolean loginAcc(String username, String password){
         dbConnector connector = new dbConnector();
         try{
-            String query = "SELECT * FROM tbl_user  WHERE u_username = '" + username + "' AND u_password = '" + password + "'";
-            ResultSet resultSet = connector.getData(query);
+            String query = "SELECT * FROM tbl_user  WHERE u_username = '" + username + "'";         
+             ResultSet resultSet = connector.getData(query);
             if(resultSet.next()){
-                status = resultSet.getString("u_status");
+                
+                String hashedPass = resultSet.getString("u_password");
+                String rehashedPass = passwordHasher.hashPassword(password);
+                
+                System.out.println(""+hashedPass);
+                System.out.println(""+rehashedPass);
+                if(hashedPass.equals(rehashedPass)){
+               status = resultSet.getString("u_status");
                 type = resultSet.getString("u_type");
-                fname = resultSet.getString("u_fname");
-                lname = resultSet.getString("u_lname");
+                Session sess = Session.getInstance();
+                sess.setUid(resultSet.getString("u_id"));
+                 sess.setFname(resultSet.getString("u_fname"));
+                  sess.setLname(resultSet.getString("u_lname"));
+                   sess.setEmail(resultSet.getString("u_email"));
+                    sess.setUsername(resultSet.getString("u_username"));
+                     sess.setType(resultSet.getString("u_type"));
+                      sess.setStauts(resultSet.getString("u_status"));
+                System.out.println(""+sess.getUid());
                 return true;
-            }else{
+           
+                }else{
+             return false;
+            }
+                  
+                }else{
                 return false;
             }
             
-        }catch (SQLException ex) {
+        }catch (SQLException | NoSuchAlgorithmException ex) {
             return false;
         }
 
@@ -191,7 +214,7 @@ public class loginform extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
      
-        
+        Session sess = Session.getInstance();
         if(loginAcc(username.getText(), password.getText())){
             if(!status.equals("Active")){
                 JOptionPane.showMessageDialog(null,"Pending Account, Wait for the Admin to Approval!");
@@ -199,13 +222,14 @@ public class loginform extends javax.swing.JFrame {
                 if(type.equals("Admin")){
                     JOptionPane.showMessageDialog(null, "Login Successfully!");
                     adminDashbord ad = new adminDashbord();
-                    ad.admin_acc.setText(""+lname);
+                    ad.admin_acc.setText(""+sess.getLname());
                     ad.setVisible(true);
                     this.dispose();
                 }else if(type.equals("User")){
                     JOptionPane.showMessageDialog(null, "Login Successfully!");
                     userdashboard ud = new userdashboard();
-                    ud.useraccount.setText(""+lname);
+                    ud.useraccount.setText(""+sess.getLname());
+                    
                     ud.setVisible(true);
                     this.dispose();
                 }else{

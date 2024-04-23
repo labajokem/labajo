@@ -203,7 +203,32 @@ public class userform extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       
+       int rowindex = usersTable.getSelectedRow();
+        if(rowindex < 0){
+            JOptionPane.showMessageDialog(null,"Please Select an Item!");
+        }else{
+            TableModel model = usersTable.getModel();
+            updatePage up = new updatePage();
+            up.idnumber.setText(""+model.getValueAt(rowindex, 0));
+            up.fname.setText(""+model.getValueAt(rowindex, 1));
+            up.lname.setText(""+model.getValueAt(rowindex, 2));
+            up.email.setText(""+model.getValueAt(rowindex, 3));
+            up.uname.setText("");
+            up.ps.setText("");
+            if(up.ut.getSelectedItem().equals("User")){
+                up.ut.setSelectedItem("User");
+            }else if(up.accountstatus.getSelectedItem().equals("Admin")){
+                up.accountstatus.setSelectedItem("Admin");
+            }              
+            up.accountstatus.setSelectedItem(model.getValueAt(rowindex, 4));
+            
+            up.setVisible(true);
+            up.action = "Update";
+            up.label.setText("UPDATE");
+            
+            
+            this.dispose();
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed

@@ -6,6 +6,9 @@
 package admin;
 
 import appkem.loginform;
+import config.dbConnector;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  *
@@ -19,7 +22,7 @@ public class userdashboard extends javax.swing.JFrame {
     public userdashboard() {
         initComponents();
     }
-
+     static String idd;
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -31,9 +34,19 @@ public class userdashboard extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        useraccount = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        uname = new javax.swing.JTextField();
+        name = new javax.swing.JTextField();
+        id = new javax.swing.JTextField();
+        email = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        useraccount = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -43,18 +56,7 @@ public class userdashboard extends javax.swing.JFrame {
 
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPanel1.add(jPanel2);
-        jPanel2.setBounds(0, 0, 931, 100);
-
-        useraccount.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        useraccount.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        useraccount.setText("user");
-        jPanel1.add(useraccount);
-        useraccount.setBounds(460, 270, 60, 40);
-
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-admin-96.png"))); // NOI18N
-        jPanel1.add(jLabel1);
-        jLabel1.setBounds(450, 190, 80, 80);
+        jPanel2.setBounds(0, 0, 931, 0);
 
         jButton1.setText("home");
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -64,6 +66,74 @@ public class userdashboard extends javax.swing.JFrame {
         });
         jPanel1.add(jButton1);
         jButton1.setBounds(990, 10, 100, 40);
+        jPanel1.add(uname);
+        uname.setBounds(310, 280, 250, 30);
+        jPanel1.add(name);
+        name.setBounds(310, 180, 250, 30);
+        jPanel1.add(id);
+        id.setBounds(310, 130, 250, 30);
+        jPanel1.add(email);
+        email.setBounds(310, 230, 250, 30);
+
+        jLabel2.setText("ID");
+        jPanel1.add(jLabel2);
+        jLabel2.setBounds(290, 140, 34, 14);
+
+        jLabel3.setText("Name");
+        jPanel1.add(jLabel3);
+        jLabel3.setBounds(280, 170, 50, 40);
+
+        jLabel4.setText("Email");
+        jPanel1.add(jLabel4);
+        jLabel4.setBounds(280, 240, 34, 14);
+
+        jLabel5.setText("Username");
+        jPanel1.add(jLabel5);
+        jLabel5.setBounds(250, 290, 70, 14);
+
+        jLabel6.setBackground(new java.awt.Color(255, 102, 102));
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel6.setText("CHANGES PASSWORD");
+        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel6MouseClicked(evt);
+            }
+        });
+        jPanel1.add(jLabel6);
+        jLabel6.setBounds(850, 560, 140, 70);
+
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-admin-96.png"))); // NOI18N
+
+        useraccount.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        useraccount.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        useraccount.setText("user");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(useraccount, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(100, 100, 100))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(useraccount, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(515, Short.MAX_VALUE))
+        );
+
+        jPanel1.add(jPanel3);
+        jPanel3.setBounds(0, 0, 130, 670);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -85,6 +155,29 @@ public class userdashboard extends javax.swing.JFrame {
         ss.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1MouseClicked
+
+    private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
+
+        
+
+        
+        dbConnector dbc = new dbConnector();
+        try{
+            String sql = "SELECT * FROM tbl_user WHERE u_id = '"+id.getText()+"'";
+            ResultSet resultSet = dbc.getData(sql);
+            if(resultSet.next()){
+                idd = resultSet.getString("u_id");
+            }
+                changesPassword cp = new changesPassword();
+                cp.id.setText(""+idd);
+                cp.setVisible(true);
+                this.dispose();
+            
+            
+        }catch (SQLException ex) {
+            
+        }
+    }//GEN-LAST:event_jLabel6MouseClicked
 
     /**
      * @param args the command line arguments
@@ -122,10 +215,20 @@ public class userdashboard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JTextField email;
+    public javax.swing.JTextField id;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    public javax.swing.JTextField name;
+    public javax.swing.JTextField uname;
     public javax.swing.JLabel useraccount;
     // End of variables declaration//GEN-END:variables
 }

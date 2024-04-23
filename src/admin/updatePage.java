@@ -15,25 +15,17 @@ import javax.swing.JOptionPane;
  *
  * @author SCC_COLLEGE
  */
-public class adminRegis extends javax.swing.JFrame {
+public class updatePage extends javax.swing.JFrame {
 
     /**
-     * Creates new form adminRegis
+     * Creates new form updatePage
      */
-    public adminRegis() {
+    public updatePage() {
         initComponents();
     }
     
-    public void close(){
-            
-            this.dispose();
-            userform md = new userform();
-            md.setVisible(true);
-            
-        }
-
-    
-        public static String us, em;
+    public String action;
+public static String us, em;
     
     public boolean duplicateCheck(){
         
@@ -70,7 +62,15 @@ public class adminRegis extends javax.swing.JFrame {
             return false;
         }
     }
-        public String action;
+    
+        public void close(){
+            
+            this.dispose();
+            userform md = new userform();
+            md.setVisible(true);
+            
+        }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -99,37 +99,26 @@ public class adminRegis extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         accountstatus = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        idnumber = new javax.swing.JTextField();
+        jPanel3 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
+        can = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jPanel2.setLayout(null);
+
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel1.setText("Admin Registration Form");
+        jLabel1.setText("Update Pages");
+        jPanel2.add(jLabel1);
+        jLabel1.setBounds(0, 20, 312, 55);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 718, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(25, Short.MAX_VALUE))
-        );
-
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1030, -1));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1050, -1));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("first name:");
@@ -175,13 +164,13 @@ public class adminRegis extends javax.swing.JFrame {
         jPanel1.add(ut, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 310, 130, -1));
 
         label.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        label.setText("register");
+        label.setText("update");
         label.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 labelMouseClicked(evt);
             }
         });
-        jPanel1.add(label, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 380, 60, -1));
+        jPanel1.add(label, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 380, 70, -1));
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel8.setText("status");
@@ -195,17 +184,36 @@ public class adminRegis extends javax.swing.JFrame {
         jLabel9.setText("ID:");
         jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(164, 120, 70, 20));
 
-        jTextField1.setEnabled(false);
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 120, 130, -1));
+        idnumber.setEnabled(false);
+        jPanel1.add(idnumber, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 120, 130, -1));
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel10.setText("cancel");
-        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel10.setText("Update Page");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(654, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+        );
+
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1070, -1));
+
+        can.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        can.setText("Cancel");
+        can.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel10MouseClicked(evt);
+                canMouseClicked(evt);
             }
         });
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 380, 60, 20));
+        jPanel1.add(can, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 380, 70, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -215,11 +223,10 @@ public class adminRegis extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 574, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 479, Short.MAX_VALUE)
         );
 
         pack();
-        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void lnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lnameActionPerformed
@@ -231,52 +238,31 @@ public class adminRegis extends javax.swing.JFrame {
     }//GEN-LAST:event_utActionPerformed
 
     private void labelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelMouseClicked
-        if(fname.getText().isEmpty() || lname.getText().isEmpty() || email.getText().isEmpty() || uname.getText().isEmpty() || ps.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "All fields are required!");
-        }else if(ps.getText().length() < 8){
-            JOptionPane.showMessageDialog(null, "Password must be 8 characters and above!");
-            ps.setText("");
-        }else if(duplicateCheck()){
-            System.out.println("Duplicate Exist");
-        
-        
-        }else{
-        
-        if(action.equals("Add")){
-           dbConnector dbc = new dbConnector();
-            boolean result = dbc.insertData("INSERT INTO tbl_user ("
-                    + "u_fname,"
-                    + "u_lname,"
-                    + "u_email,"
-                    + "u_username,"
-                    + "u_password,"
-                    + "u_type,"
-                    + "u_status) VALUES ("
-                    + "'"+fname.getText()+"',"
-                    + "'"+lname.getText()+"',"
-                    + "'"+email.getText()+"',"
-                    + "'"+uname.getText()+"',"
-                    + "'"+ps.getText()+"',"
-                    + "'"+ut.getSelectedItem()+"',"
-                    + "'"+accountstatus.getSelectedItem()+"')");  
+       if(action.equals("Update")){
             
-            if(true){
-                JOptionPane.showMessageDialog(null, "Successfully Save!");
+            if(duplicateCheck()){
+                System.out.println("Duplicate Exist");
+                
+                }else{
+            
+                dbConnector dbc = new dbConnector();
+                dbc.updateData("UPDATE tbl_user SET "
+                    + " u_fname =   '"+fname.getText()+"',"
+                    + " u_lname =   '"+lname.getText()+"',"
+                    + " u_email =   '"+email.getText()+"',"
+                    + " u_status = '"+accountstatus.getSelectedItem()+"'"
+                    + "WHERE u_id = '"+idnumber.getText()+"'");
                 close();
-            }else{
-                System.out.println("Saving Data Failed!");
+                }
             }
-            
-        }
-        }
+
     }//GEN-LAST:event_labelMouseClicked
 
-    private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
-        loginform lff = new loginform();
-        JOptionPane.showMessageDialog(null,"Loggout Success!");
-        lff.setVisible(true);
+    private void canMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_canMouseClicked
+      userform ssss = new userform();
+        ssss.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jLabel10MouseClicked
+    }//GEN-LAST:event_canMouseClicked
 
     /**
      * @param args the command line arguments
@@ -295,28 +281,30 @@ public class adminRegis extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(adminRegis.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(updatePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(adminRegis.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(updatePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(adminRegis.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(updatePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(adminRegis.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(updatePage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new adminRegis().setVisible(true);
+                new updatePage().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> accountstatus;
-    private javax.swing.JTextField email;
-    private javax.swing.JTextField fname;
+    public javax.swing.JComboBox<String> accountstatus;
+    private javax.swing.JLabel can;
+    public javax.swing.JTextField email;
+    public javax.swing.JTextField fname;
+    public javax.swing.JTextField idnumber;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -329,11 +317,11 @@ public class adminRegis extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JPanel jPanel3;
     public javax.swing.JLabel label;
-    private javax.swing.JTextField lname;
-    private javax.swing.JTextField ps;
-    private javax.swing.JTextField uname;
-    private javax.swing.JComboBox<String> ut;
+    public javax.swing.JTextField lname;
+    public javax.swing.JTextField ps;
+    public javax.swing.JTextField uname;
+    public javax.swing.JComboBox<String> ut;
     // End of variables declaration//GEN-END:variables
 }
